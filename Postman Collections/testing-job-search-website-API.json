@@ -912,7 +912,7 @@
 										"id": "6427ab6f-fddf-4d01-8090-0da430696084",
 										"exec": [
 											"\r",
-											"const message = \"Tài khoản người dùng không tồn tại\";\r",
+											"\r",
 											"const message2 = \"Mật khẩu không hợp lệ, mật khẩu phải tối thiểu 8 kí tự, bao gồm chữ hoa, thường, số\";\r",
 											"const jsonData = pm.response.json();\r",
 											"if (pm.response.code === 400){\r",
@@ -948,7 +948,7 @@
 							"response": []
 						},
 						{
-							"name": "Đăng nhập tài khoản không hợp lệ Copy",
+							"name": "Đăng nhập tài khoản - mật khẩu sai",
 							"event": [
 								{
 									"listen": "prerequest",
