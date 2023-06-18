@@ -862,7 +862,31 @@
 					"response": []
 				}
 			],
-			"id": "062b2de4-9c7c-47a0-9124-cedd5467f394"
+			"id": "062b2de4-9c7c-47a0-9124-cedd5467f394",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1588bd4a-586f-439b-a9a6-c6807b3c77ec",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "13552e88-ab91-4031-898b-1e32f609b979",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Đăng ký thất bại status code là 500\",() => {",
+							"    pm.response.to.have.status(500);",
+							"})"
+						]
+					}
+				}
+			]
 		}
 	]
 }
