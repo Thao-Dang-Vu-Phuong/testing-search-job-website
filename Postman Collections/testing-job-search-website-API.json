@@ -955,7 +955,7 @@
 									"script": {
 										"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
 										"exec": [
-											"pm.environment.set(\"invalidPassword\", \"abc\");"
+											"pm.environment.set(\"worngPassword\", \"Mai1234\");"
 										],
 										"type": "text/javascript"
 									}
@@ -967,11 +967,11 @@
 										"exec": [
 											"\r",
 											"const message = \"Tài khoản người dùng không tồn tại\";\r",
-											"const message2 = \"Mật khẩu không hợp lệ, mật khẩu phải tối thiểu 8 kí tự, bao gồm chữ hoa, thường, số\";\r",
+											"\r",
 											"const jsonData = pm.response.json();\r",
 											"if (pm.response.code === 400){\r",
 											"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
-											"        pm.expect(jsonData.message).to.eql(message2);\r",
+											"        pm.expect(jsonData.message).to.eql(message);\r",
 											"}); \r",
 											"}\r",
 											"\r",
