@@ -129,6 +129,129 @@
 			"response": []
 		},
 		{
+			"name": "Đăng ký ứng viên - thiếu account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+						"exec": [
+							"pm.environment.set(\"account\", \"Ngọc Mai\");\r",
+							"pm.environment.set(\"password\", \"Mai@1234\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+						"exec": [
+							"pm.test(\"Đăng ký thành công status code là 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"const jsonData = pm.response.json();\r",
+							"if (pm.response.code !== 201) {\r",
+							"pm.test(\"Đăng ký thất bại status code là 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"})} else {\r",
+							"    pm.test(\"Tài khoản hiển thị đúng\", () => {\r",
+							"        pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
+							"    })\r",
+							"    pm.test(\"Mật khẩu hiển thị đúng\", () => {\r",
+							"        pm.expect(jsonData.password).to.eql(pm.environment.get(\"password\"));\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							"  \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "134b2d04-3a8e-4f22-997c-30087153d410",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Ngọc Mai",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "mai@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "account",
+							"value": "{{account}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0123456789",
+							"type": "text"
+						},
+						{
+							"key": "sex",
+							"value": "Nữ",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "06/03/1998",
+							"type": "text"
+						},
+						{
+							"key": "experience",
+							"value": "1 năm",
+							"type": "text"
+						},
+						{
+							"key": "skill",
+							"value": "Tiếng Anh",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "chăm chỉ",
+							"type": "text"
+						},
+						{
+							"key": "foreiginLanguage",
+							"value": "JLPT N3",
+							"type": "text"
+						},
+						{
+							"key": "education",
+							"value": "tốt nghiệp cấp 3",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/Users/Phuong Thao/OneDrive/Pictures/16793_85_8z02T.jpg"
+						}
+					]
+				},
+				"url": "{{asmurl}}/users/register"
+			},
+			"response": []
+		},
+		{
 			"name": "Đăng nhập thành công",
 			"event": [
 				{
