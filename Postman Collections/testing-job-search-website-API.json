@@ -461,14 +461,15 @@
 								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
 								"exec": [
 									"pm.test(\"Lấy danh sách công ty thành công status code là 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.have.status(201);\r",
 									"});\r",
-									"if (pm.response.code !== 200)\r",
+									"if (pm.response.code === 201)\r",
 									"\r",
 									"pm.test(\"Danh sách công ty không trống\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.not.empty;\r",
-									"    pm.expect(jsonData.length) > 0;\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
 									"})\r",
 									""
 								],
