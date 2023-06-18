@@ -274,18 +274,15 @@
 									"pm.test(\"Lấy thông tin User thành công status code là 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"if (pm.response.code !== 200){\r",
-									"   pm.test(\"Lấy thông tin User thất bại status code là 500\", function () {\r",
-									"    pm.response.to.have.status(500); })\r",
-									"} else if(pm.response.code !== 200 && pm.response.code !== 500){\r",
-									"    pm.test(\"Chưa đăng nhập status code là 403\", function () {\r",
-									"    pm.response.to.have.status(403); })\r",
-									"}\r",
-									"pm.test(\"Thông tin User không trống\", () => {\r",
+									"if (pm.response.code === 200)\r",
+									"pm.test(\"Thông tin User hiển thị đúng\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.not.null;\r",
-									"    pm.expect(jsonData.length) > 0;\r",
-									"})"
+									"    pm.expect(jsonData).to.not.empty;\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"userID\"));\r",
+									"    pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
+									"    pm.expect(jsonData.password).to.eql(pm.environment.get(\"password\"));\r",
+									"})\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1143,8 +1140,73 @@
 			"id": "09ee018a-7cc4-406f-ba30-c15a84779022"
 		},
 		{
-			"name": "New Folder",
-			"item": [],
+			"name": "Unauthorized header",
+			"item": [
+				{
+					"name": "Lấy thông tin User - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy thông tin User thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"if (pm.response.code !== 200){\r",
+									"   pm.test(\"Lấy thông tin User thất bại status code là 500\", function () {\r",
+									"    pm.response.to.have.status(500); })\r",
+									"} else if(pm.response.code !== 200 && pm.response.code !== 500){\r",
+									"    pm.test(\"Chưa đăng nhập status code là 403\", function () {\r",
+									"    pm.response.to.have.status(403); })\r",
+									"}\r",
+									"pm.test(\"Thông tin User không trống\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.null;\r",
+									"    pm.expect(jsonData.length) > 0;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "93939870-23dd-4ca7-9200-0cc771fc9cad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/get-information-user"
+					},
+					"response": []
+				}
+			],
 			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02"
 		}
 	]
