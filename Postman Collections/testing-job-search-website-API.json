@@ -1253,6 +1253,62 @@
 						"url": "{{asmurl}}/work-user/get-all-admin"
 					},
 					"response": []
+				},
+				{
+					"name": "Ứng tuyển - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Thông báo lỗi\", () => {\r",
+									"\r",
+									"const message = \"Forbidden.\";\r",
+									"   pm.response.to.have.body(message);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e51b0a4e-3bb3-4bee-b028-4d5ac6fddda4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jobId\" : \"{{jobID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/application/create-application"
+					},
+					"response": []
 				}
 			],
 			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02",
