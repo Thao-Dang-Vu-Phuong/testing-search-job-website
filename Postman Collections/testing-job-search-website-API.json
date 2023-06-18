@@ -36,7 +36,7 @@
 							"        pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
 							"    })\r",
 							"    pm.test(\"Mật khẩu hiển thị đúng\", () => {\r",
-							"        pm.expect(jsonData.account).to.eql(pm.environment.get(\"password\"));\r",
+							"        pm.expect(jsonData.password).to.eql(pm.environment.get(\"password\"));\r",
 							"    })\r",
 							"}\r",
 							"\r",
