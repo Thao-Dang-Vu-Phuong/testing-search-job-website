@@ -898,7 +898,7 @@
 							"script": {
 								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
 								"exec": [
-									""
+									"pm.environment.set(\"invalidUser\", \"dsjagfjh\");"
 								],
 								"type": "text/javascript"
 							}
@@ -933,7 +933,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"account\" : \"123\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+							"raw": "{\r\n    \"account\" : \"{{invalidUser}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
