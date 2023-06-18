@@ -1143,7 +1143,7 @@
 			"name": "Unauthorized header",
 			"item": [
 				{
-					"name": "Lấy thông tin User Copy",
+					"name": "Lấy thông tin User - 403",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1160,20 +1160,10 @@
 							"script": {
 								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
 								"exec": [
-									"pm.test(\"Lấy thông tin User thành công status code là 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"if (pm.response.code !== 200){\r",
-									"   pm.test(\"Lấy thông tin User thất bại status code là 500\", function () {\r",
-									"    pm.response.to.have.status(500); })\r",
-									"} else if(pm.response.code !== 200 && pm.response.code !== 500){\r",
-									"    pm.test(\"Chưa đăng nhập status code là 403\", function () {\r",
-									"    pm.response.to.have.status(403); })\r",
-									"}\r",
-									"pm.test(\"Thông tin User không trống\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.not.null;\r",
-									"    pm.expect(jsonData.length) > 0;\r",
+									"pm.test(\"Thông báo lỗi\", () => {\r",
+									"\r",
+									"const message = \"Bạn Chưa Đăng Nhập\";\r",
+									"   pm.response.to.have.body(message);\r",
 									"})"
 								],
 								"type": "text/javascript"
@@ -1190,7 +1180,8 @@
 							{
 								"key": "token",
 								"value": "{{token}}",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
