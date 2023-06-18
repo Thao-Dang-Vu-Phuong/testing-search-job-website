@@ -847,6 +847,116 @@
 						"url": "{{asmurl}}/users/register"
 					},
 					"response": []
+				},
+				{
+					"name": "Đăng ký ứng viên - thiếu password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									"pm.environment.set(\"account\", \"Ngọc Mai\");\r",
+									"pm.environment.set(\"password\", \"Mai@1234\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"\r",
+									"\r",
+									"  \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "09e5f2f7-7bc3-4aaf-b93f-c19109e65cd1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ngọc Mai",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mai@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "account",
+									"value": "{{account}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0123456789",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "Nữ",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "06/03/1998",
+									"type": "text"
+								},
+								{
+									"key": "experience",
+									"value": "1 năm",
+									"type": "text"
+								},
+								{
+									"key": "skill",
+									"value": "Tiếng Anh",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "chăm chỉ",
+									"type": "text"
+								},
+								{
+									"key": "foreiginLanguage",
+									"value": "JLPT N3",
+									"type": "text"
+								},
+								{
+									"key": "education",
+									"value": "tốt nghiệp cấp 3",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Phuong Thao/OneDrive/Pictures/16793_85_8z02T.jpg"
+								}
+							]
+						},
+						"url": "{{asmurl}}/users/register"
+					},
+					"response": []
 				}
 			],
 			"id": "062b2de4-9c7c-47a0-9124-cedd5467f394",
