@@ -463,7 +463,7 @@
 									"pm.test(\"Lấy danh sách công ty thành công status code là 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"if (pm.response.code !== 200)\r",
+									"\r",
 									"\r",
 									"pm.test(\"Danh sách công ty không trống\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
@@ -525,16 +525,16 @@
 									"pm.test(\"Lấy danh sách đơn ứng tuyển thành công status code là 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"if (pm.response.code !== 200){\r",
-									"   pm.test(\"Lấy danh sách đơn ứng tuyển thất bại status code là 500\", function () {\r",
-									"    pm.response.to.have.status(500); })\r",
-									"} \r",
 									"\r",
 									"pm.test(\"Danh sách đơn ứng tuyển không trống\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.not.null;\r",
-									"    pm.expect(jsonData.length) > 0;\r",
-									"})"
+									"    pm.expect(jsonData).to.not.empty;\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
+									"})\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -550,7 +550,8 @@
 							{
 								"key": "token",
 								"value": "{{token}}",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
