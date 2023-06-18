@@ -1196,6 +1196,60 @@
 						"url": "{{asmurl}}/users/get-information-user"
 					},
 					"response": []
+				},
+				{
+					"name": "Lấy danh sách ứng viên - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Thông báo lỗi\", () => {\r",
+									"\r",
+									"const message = \"Forbidden.\";\r",
+									"   pm.response.to.have.body(message);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "24068954-3366-40eb-bd73-59821e5146d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/work-user/get-all-admin"
+					},
+					"response": []
 				}
 			],
 			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02",
