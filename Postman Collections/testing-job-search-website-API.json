@@ -9,7 +9,7 @@
 			"name": "Happy path",
 			"item": [
 				{
-					"name": "New Folder",
+					"name": "Unauthorized error",
 					"item": [],
 					"id": "2460bcff-0c35-4845-ac78-d16554043b6a"
 				},
