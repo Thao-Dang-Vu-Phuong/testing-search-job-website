@@ -948,7 +948,31 @@
 							"response": []
 						}
 					],
-					"id": "a51a2d08-c0da-46cc-a6bb-a4bbd6df56b7"
+					"id": "a51a2d08-c0da-46cc-a6bb-a4bbd6df56b7",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0d5a132d-0c55-4539-9e8f-2bfb2ec12f9f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8564eb71-efb7-4497-bb26-faae86f747ed",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Đăng nhập thất bại status code là 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					]
 				},
 				{
 					"name": "Đăng nhập tài khoản không tồn tại",
