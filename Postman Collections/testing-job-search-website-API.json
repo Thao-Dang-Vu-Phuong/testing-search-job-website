@@ -899,13 +899,13 @@
 								{
 									"key": "account",
 									"value": "{{account}}",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "{{password}}",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "phone",
