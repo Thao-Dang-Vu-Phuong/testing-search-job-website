@@ -588,18 +588,21 @@
 									"pm.test(\"Lấy danh sách các User thành công status code là 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"if (pm.response.code !== 200){\r",
-									"   pm.test(\"Lấy danh sách các User thất bại status code là 500\", function () {\r",
-									"    pm.response.to.have.status(500); })\r",
-									"} \r",
-									"\r",
+									"const jsonData = pm.response.json();\r",
 									"pm.test(\"Danh sách các User không trống\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
+									"    \r",
 									"    pm.expect(jsonData).to.not.empty;\r",
 									"    pm.expect(jsonData).to.be.an('array');\r",
 									"    pm.expect(jsonData.length).to.above(0);\r",
 									"})\r",
-									""
+									"\r",
+									"pm.test(\"User đã tạo nằm trong danh sách\", () => {\r",
+									"    let user = jsonData.find((user) => \r",
+									"       user.id === pm.environment.get(\"userID\"));\r",
+									"    pm.expect(user).to.be.an('object');\r",
+									"    pm.expect(user.account).to.eql(pm.environment.get(\"account\"));\r",
+									"    pm.expect(user.password).to.eql(pm.environment.get(\"password\"));\r",
+									"})"
 								],
 								"type": "text/javascript"
 							}
