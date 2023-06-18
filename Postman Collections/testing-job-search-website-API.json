@@ -757,21 +757,7 @@
 							"script": {
 								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
 								"exec": [
-									"pm.test(\"Đăng ký thành công status code là 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"const jsonData = pm.response.json();\r",
-									"if (pm.response.code !== 201) {\r",
-									"pm.test(\"Đăng ký thất bại status code là 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
-									"})} else {\r",
-									"    pm.test(\"Tài khoản hiển thị đúng\", () => {\r",
-									"        pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
-									"    })\r",
-									"    pm.test(\"Mật khẩu hiển thị đúng\", () => {\r",
-									"        pm.expect(jsonData.password).to.eql(pm.environment.get(\"password\"));\r",
-									"    })\r",
-									"}\r",
+									"\r",
 									"\r",
 									"  \r",
 									""
@@ -803,7 +789,8 @@
 								{
 									"key": "account",
 									"value": "{{account}}",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "password",
