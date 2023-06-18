@@ -851,7 +851,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "91f614aa-b529-4559-8587-7fd5ca0ffb8c",
+						"id": "6edfa7ae-a4ad-4a46-8133-b86285899ddd",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -861,13 +861,14 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "457d90f6-ea30-42f7-9d7a-2b38226fd0e0",
+						"id": "65b7d542-3aef-49e9-8f80-e08b63690271",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Đăng ký thất bại status code là 500\",() => {",
 							"    pm.response.to.have.status(500);",
 							"})",
 							"const response = pm.response.json();",
+							"if(pm.response.code === 500)",
 							"pm.test(\"Reponse body có trường error\", () => {",
 							"pm.expect(response).to.have.ownProperty('errors');",
 							"})"
