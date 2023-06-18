@@ -891,6 +891,11 @@
 			"name": "Đăng nhập không thành công",
 			"item": [
 				{
+					"name": "Bad Request",
+					"item": [],
+					"id": "a51a2d08-c0da-46cc-a6bb-a4bbd6df56b7"
+				},
+				{
 					"name": "Đăng nhập tài khoản không tồn tại",
 					"event": [
 						{
