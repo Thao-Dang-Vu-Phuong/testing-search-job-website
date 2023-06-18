@@ -1141,6 +1141,11 @@
 				}
 			],
 			"id": "09ee018a-7cc4-406f-ba30-c15a84779022"
+		},
+		{
+			"name": "Unauthorized header",
+			"item": [],
+			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02"
 		}
 	]
 }
