@@ -9,6 +9,11 @@
 			"name": "Happy path",
 			"item": [
 				{
+					"name": "New Folder",
+					"item": [],
+					"id": "2460bcff-0c35-4845-ac78-d16554043b6a"
+				},
+				{
 					"name": "Đăng ký ứng viên",
 					"event": [
 						{
