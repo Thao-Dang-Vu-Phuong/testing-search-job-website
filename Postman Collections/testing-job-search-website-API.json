@@ -31,7 +31,7 @@
 									"    pm.response.to.have.status(201);\r",
 									"});\r",
 									"const jsonData = pm.response.json();\r",
-									"\r",
+									"if(pm.response.code === 201)\r",
 									"    pm.test(\"Tài khoản hiển thị đúng\", () => {\r",
 									"        pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
 									"    })\r",
@@ -173,119 +173,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{asmurl}}/users/login"
-					},
-					"response": []
-				},
-				{
-					"name": "Đăng nhập tài khoản không tồn tại",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
-								"exec": [
-									"pm.test(\"Đăng nhập thất bại status code là 404\", function () {\r",
-									"\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"const message = \"Tài khoản người dùng không tồn tại\";\r",
-									"const jsonData = pm.response.json();\r",
-									"pm.test(\"Thông báo đăng nhập tài khoản không tồn tại\", function () {\r",
-									"        pm.expect(jsonData.message).to.eql(message);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "9e3d5478-1c71-44c1-9013-6edb6bd4be19",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"account\" : \"123\",\r\n    \"password\" : \"{{password}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{asmurl}}/users/login"
-					},
-					"response": []
-				},
-				{
-					"name": "Đăng nhập tài khoản sai mật khẩu",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
-								"exec": [
-									"pm.test(\"Đăng nhập thất bại status code là 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"const message = \"Tài khoản người dùng không tồn tại\";\r",
-									"const message2 = \"Mật khẩu không hợp lệ, mật khẩu phải tối thiểu 8 kí tự, bao gồm chữ hoa, thường, số\";\r",
-									"const jsonData = pm.response.json();\r",
-									"if (pm.response.code === 400){\r",
-									"pm.test(\"Thông báo đăng nhập mật khẩu sai\", function () {\r",
-									"        pm.expect(jsonData.message).to.eql(message);\r",
-									"});} else {\r",
-									"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
-									"        pm.expect(jsonData.message).to.eql(message2);\r",
-									"}); \r",
-									"}\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "8b763c8b-3465-4367-8ab9-d27c561c3dc1",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -991,7 +878,121 @@
 		},
 		{
 			"name": "Đăng nhập không thành công",
-			"item": [],
+			"item": [
+				{
+					"name": "Đăng nhập tài khoản không tồn tại",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Đăng nhập thất bại status code là 404\", function () {\r",
+									"\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"const message = \"Tài khoản người dùng không tồn tại\";\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Thông báo đăng nhập tài khoản không tồn tại\", function () {\r",
+									"        pm.expect(jsonData.message).to.eql(message);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "9e3d5478-1c71-44c1-9013-6edb6bd4be19",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\" : \"123\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Đăng nhập tài khoản sai mật khẩu",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Đăng nhập thất bại status code là 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"const message = \"Tài khoản người dùng không tồn tại\";\r",
+									"const message2 = \"Mật khẩu không hợp lệ, mật khẩu phải tối thiểu 8 kí tự, bao gồm chữ hoa, thường, số\";\r",
+									"const jsonData = pm.response.json();\r",
+									"if (pm.response.code === 400){\r",
+									"pm.test(\"Thông báo đăng nhập mật khẩu sai\", function () {\r",
+									"        pm.expect(jsonData.message).to.eql(message);\r",
+									"});} else {\r",
+									"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
+									"        pm.expect(jsonData.message).to.eql(message2);\r",
+									"}); \r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "8b763c8b-3465-4367-8ab9-d27c561c3dc1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/login"
+					},
+					"response": []
+				}
+			],
 			"id": "09ee018a-7cc4-406f-ba30-c15a84779022"
 		}
 	]
