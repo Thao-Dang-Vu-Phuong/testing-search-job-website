@@ -444,69 +444,6 @@
 					"response": []
 				},
 				{
-					"name": "Ứng tuyển - 403",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
-								"exec": [
-									"pm.test(\"Ứng tuyển thành công status code là 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"if (pm.response.code !== 200){\r",
-									"   \r",
-									"    pm.test(\"Chưa đăng nhập status code là 403\", function () {\r",
-									"    pm.response.to.have.status(403); })\r",
-									"}\r",
-									"pm.test(\"Thông tin ứng tuyển đúng\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.data.userId).to.eql(pm.variables.get(\"userID\"));\r",
-									"    pm.expect(parseInt(jsonData.data.jobId)).to.eql(pm.variables.get(\"jobID\"));\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "e51b0a4e-3bb3-4bee-b028-4d5ac6fddda4",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "token",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"jobId\" : \"{{jobID}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{asmurl}}/application/create-application"
-					},
-					"response": []
-				},
-				{
 					"name": "Lấy danh sách công ty",
 					"event": [
 						{
