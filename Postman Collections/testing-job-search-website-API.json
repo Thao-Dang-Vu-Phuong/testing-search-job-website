@@ -1000,6 +1000,60 @@
 								"url": "{{asmurl}}/users/login"
 							},
 							"response": []
+						},
+						{
+							"name": "Đăng nhập tài khoản - mật khẩu trống",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+										"exec": [
+											"pm.environment.set(\"worngPassword\", \"Mai1234\");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+										"exec": [
+											"\r",
+											"const message = \"Tài khoản người dùng không tồn tại\";\r",
+											"\r",
+											"const jsonData = pm.response.json();\r",
+											"if (pm.response.code === 400){\r",
+											"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
+											"        pm.expect(jsonData.message).to.eql(message);\r",
+											"}); \r",
+											"}\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "64485c3e-c671-47da-aff5-414d2db29ffc",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"{{invalidPassword}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{asmurl}}/users/login"
+							},
+							"response": []
 						}
 					],
 					"id": "a51a2d08-c0da-46cc-a6bb-a4bbd6df56b7",
