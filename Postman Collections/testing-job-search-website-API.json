@@ -6,6 +6,11 @@
 	},
 	"item": [
 		{
+			"name": "New Folder",
+			"item": [],
+			"id": "58c9d662-f62c-441c-b27e-7c817fe5fc60"
+		},
+		{
 			"name": "Đăng ký ứng viên",
 			"event": [
 				{
