@@ -461,9 +461,9 @@
 								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
 								"exec": [
 									"pm.test(\"Lấy danh sách công ty thành công status code là 200\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"if (pm.response.code === 201)\r",
+									"\r",
 									"\r",
 									"pm.test(\"Danh sách công ty không trống\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
