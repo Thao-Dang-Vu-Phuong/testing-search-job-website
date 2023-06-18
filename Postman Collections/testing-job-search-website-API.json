@@ -404,7 +404,9 @@
 									"if (pm.response.code === 200)\r",
 									"pm.test(\"Thông tin ứng tuyển đúng\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.userId).to.be.a('number');\r",
 									"    pm.expect(jsonData.data.userId).to.eql(pm.variables.get(\"userID\"));\r",
+									"    pm.expect(jsonData.data.jobId).to.be.a('number');\r",
 									"    pm.expect(jsonData.data.jobId).to.eql(pm.variables.get(\"jobID\"));\r",
 									"\r",
 									"})\r",
@@ -461,17 +463,14 @@
 									"pm.test(\"Lấy danh sách công ty thành công status code là 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"if (pm.response.code !== 200){\r",
-									"   pm.test(\"Lấy danh sách công ty thất bại status code là 500\", function () {\r",
-									"    pm.response.to.have.status(500); })\r",
-									"} \r",
+									"if (pm.response.code !== 200)\r",
 									"\r",
 									"pm.test(\"Danh sách công ty không trống\", () => {\r",
 									"    const jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.not.null;\r",
+									"    pm.expect(jsonData).to.not.empty;\r",
 									"    pm.expect(jsonData.length) > 0;\r",
 									"})\r",
-									"postman.setNextRequest(\"Lấy danh sách các User\")"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -487,7 +486,8 @@
 							{
 								"key": "token",
 								"value": "{{token}}",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
