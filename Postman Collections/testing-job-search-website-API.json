@@ -379,6 +379,70 @@
 					"response": []
 				},
 				{
+					"name": "Lấy danh sách ứng viên - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy danh sách ứng viên thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"if (pm.response.code !== 200){\r",
+									"   pm.test(\"Lấy danh sách ứng viên thất bại status code là 500\", function () {\r",
+									"    pm.response.to.have.status(500); })\r",
+									"} else if(pm.response.code !== 200 && pm.response.code !== 500){\r",
+									"    pm.test(\"Chưa đăng nhập status code là 403\", function () {\r",
+									"    pm.response.to.have.status(403); })\r",
+									"}\r",
+									"pm.test(\"Danh sách ứng viên không trống\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.null;\r",
+									"    pm.expect(jsonData.length) > 0;\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "24068954-3366-40eb-bd73-59821e5146d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/work-user/get-all-admin"
+					},
+					"response": []
+				},
+				{
 					"name": "Ứng tuyển",
 					"event": [
 						{
@@ -1198,7 +1262,31 @@
 					"response": []
 				}
 			],
-			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02"
+			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4beec09d-c93e-4d40-a3f6-826dc6a50227",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "53555c71-08f1-4058-b3f3-c74422c654f1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Lấy thông tin User thành công status code là 200\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						]
+					}
+				}
+			]
 		}
 	]
 }
