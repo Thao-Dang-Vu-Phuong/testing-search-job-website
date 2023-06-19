@@ -68,7 +68,7 @@
 									"type": "text"
 								},
 								{
-									"key": "account",
+									"key": "email",
 									"value": "{{account}}",
 									"type": "text"
 								},
@@ -317,6 +317,68 @@
 					"response": []
 				},
 				{
+					"name": "Ứng tuyển",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Ứng tuyển thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"if (pm.response.code === 200)\r",
+									"pm.test(\"Thông tin ứng tuyển đúng\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.userId).to.be.a('number');\r",
+									"    pm.expect(jsonData.data.userId).to.eql(pm.variables.get(\"userID\"));\r",
+									"    pm.expect(jsonData.data.jobId).to.be.a('number');\r",
+									"    pm.expect(jsonData.data.jobId).to.eql(pm.variables.get(\"jobID\"));\r",
+									"\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4ec9bdcb-34e1-44ba-8491-952c336c712e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jobId\" : \"{{jobID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/application/create-application"
+					},
+					"response": []
+				},
+				{
 					"name": "Lấy danh sách ứng viên",
 					"event": [
 						{
@@ -377,68 +439,6 @@
 							}
 						},
 						"url": "{{asmurl}}/work-user/get-all-admin"
-					},
-					"response": []
-				},
-				{
-					"name": "Ứng tuyển",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
-								"exec": [
-									"pm.test(\"Ứng tuyển thành công status code là 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"if (pm.response.code === 200)\r",
-									"pm.test(\"Thông tin ứng tuyển đúng\", () => {\r",
-									"    const jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.data.userId).to.be.a('number');\r",
-									"    pm.expect(jsonData.data.userId).to.eql(pm.variables.get(\"userID\"));\r",
-									"    pm.expect(jsonData.data.jobId).to.be.a('number');\r",
-									"    pm.expect(jsonData.data.jobId).to.eql(pm.variables.get(\"jobID\"));\r",
-									"\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "4ec9bdcb-34e1-44ba-8491-952c336c712e",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "token",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"jobId\" : \"{{jobID}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{asmurl}}/application/create-application"
 					},
 					"response": []
 				},
@@ -648,8 +648,7 @@
 							"script": {
 								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
 								"exec": [
-									"pm.environment.set(\"account\", \"Ngọc Mai\");\r",
-									"pm.environment.set(\"password\", \"Mai@1234\");"
+									""
 								],
 								"type": "text/javascript"
 							}
