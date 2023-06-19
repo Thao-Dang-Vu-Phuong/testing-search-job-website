@@ -1,0 +1,1344 @@
+{
+	"info": {
+		"_postman_id": "2cdbe6b3-de53-4277-be0c-76fbf78f6c4c",
+		"name": "Funix - ASM 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Happy path",
+			"item": [
+				{
+					"name": "Đăng ký ứng viên",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									"pm.environment.set(\"account\", \"Ngọc Mai\");\r",
+									"pm.environment.set(\"password\", \"Mai@1234\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Đăng ký thành công status code là 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"if(pm.response.code === 201)\r",
+									"    pm.test(\"Tài khoản hiển thị đúng\", () => {\r",
+									"        pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
+									"    })\r",
+									"    pm.test(\"Mật khẩu hiển thị đúng\", () => {\r",
+									"        pm.expect(jsonData.password).to.eql(pm.environment.get(\"password\"));\r",
+									"    })\r",
+									"\r",
+									"\r",
+									"  \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "577330cd-4011-40cc-b972-8a9d68fa2c8f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ngọc Mai",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mai@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{account}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0123456789",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "Nữ",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "06/03/1998",
+									"type": "text"
+								},
+								{
+									"key": "experience",
+									"value": "1 năm",
+									"type": "text"
+								},
+								{
+									"key": "skill",
+									"value": "Tiếng Anh",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "chăm chỉ",
+									"type": "text"
+								},
+								{
+									"key": "foreiginLanguage",
+									"value": "JLPT N3",
+									"type": "text"
+								},
+								{
+									"key": "education",
+									"value": "tốt nghiệp cấp 3",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Phuong Thao/OneDrive/Pictures/16793_85_8z02T.jpg"
+								}
+							]
+						},
+						"url": "{{asmurl}}/users/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Đăng nhập thành công",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Đăng nhập thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const message = \"Đăng nhập thành công\";\r",
+									"const jsonData = pm.response.json();\r",
+									"if(pm.response.code === 200)\r",
+									"pm.test(\"Thông báo đăng nhập thành công\", function () {\r",
+									"    pm.expect(jsonData).to.haveOwnProperty('message');\r",
+									"        pm.expect(jsonData.message).to.eql(message);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Thông tin user có userId và token\", () => {\r",
+									"pm.expect(jsonData.user).to.haveOwnProperty('id');\r",
+									"pm.environment.set(\"userID\", jsonData.user.id);\r",
+									"pm.expect(jsonData).to.haveOwnProperty('token');\r",
+									"pm.environment.set(\"token\", jsonData.token);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Thông tin user có account trùng với account đã đăng nhập\", () => {\r",
+									"    pm.expect(jsonData.user).to.haveOwnProperty('account');\r",
+									"pm.expect(jsonData.user.account).to.eql(pm.environment.get(\"account\"))\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "1958a295-63fb-47ec-969c-2624da5d8596",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy danh sách công việc",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy danh sách công việc thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"if (pm.response.code === 200){\r",
+									"pm.test(\"Danh sách công việc không trống\", () => {\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
+									"    for(let job of jsonData){\r",
+									"        pm.expect(job).to.be.an('object');\r",
+									"    pm.expect(job).to.haveOwnProperty('id');}\r",
+									"pm.environment.set(\"jobID\", jsonData[0].id);\r",
+									"})\r",
+									"} else {\r",
+									"pm.test(\"Lấy danh sách công việc thất bại status code là 500\", function () {\r",
+									"    pm.response.to.have.status(500); })\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e7c99cf5-7f58-4af1-9da1-b20ae2ef0b1c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/work/list-work"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy thông tin User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy thông tin User thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"if (pm.response.code === 200)\r",
+									"pm.test(\"Thông tin User hiển thị đúng\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.empty;\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"userID\"));\r",
+									"    pm.expect(jsonData.account).to.eql(pm.environment.get(\"account\"));\r",
+									"    pm.expect(jsonData.password).to.eql(pm.environment.get(\"password\"));\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "70535744-86d9-424f-a4ed-7b192b042141",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/get-information-user"
+					},
+					"response": []
+				},
+				{
+					"name": "Ứng tuyển",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Ứng tuyển thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"if (pm.response.code === 200)\r",
+									"pm.test(\"Thông tin ứng tuyển đúng\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.userId).to.be.a('number');\r",
+									"    pm.expect(jsonData.data.userId).to.eql(pm.variables.get(\"userID\"));\r",
+									"    pm.expect(jsonData.data.jobId).to.be.a('number');\r",
+									"    pm.expect(jsonData.data.jobId).to.eql(pm.variables.get(\"jobID\"));\r",
+									"\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4ec9bdcb-34e1-44ba-8491-952c336c712e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jobId\" : \"{{jobID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/application/create-application"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy danh sách ứng viên",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy danh sách ứng viên thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"if (pm.response.code === 200){\r",
+									"pm.test(\"Danh sách ứng viên không trống\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.null;\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
+									"for (let i=0; i<jsonData.length; i++)\r",
+									"pm.expect(jsonData[i]).to.be.an('object');\r",
+									"})\r",
+									"\r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5f1e6c62-1fe5-4a7f-80d3-2b4f104d5af5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/work-user/get-all-admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy danh sách công ty",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy danh sách công ty thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Danh sách công ty không trống\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.empty;\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "dd59c910-91b2-401f-803a-e4a6b177fe43",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/company/getAllCompany"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy danh sách các đơn ứng tuyển",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy danh sách đơn ứng tuyển thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Danh sách đơn ứng tuyển không trống\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.empty;\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
+									"})\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "fa90a774-95c6-42e9-9f75-2169757db355",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/application/getall-application"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy danh sách các User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Lấy danh sách các User thành công status code là 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Danh sách các User không trống\", () => {\r",
+									"    \r",
+									"    pm.expect(jsonData).to.not.empty;\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.above(0);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"User đã tạo nằm trong danh sách\", () => {\r",
+									"    let user = jsonData.find((user) => \r",
+									"       user.id === pm.environment.get(\"userID\"));\r",
+									"    pm.expect(user).to.be.an('object');\r",
+									"    pm.expect(user.account).to.eql(pm.environment.get(\"account\"));\r",
+									"    pm.expect(user.password).to.eql(pm.environment.get(\"password\"));\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b87b27fe-d818-4ffd-b6ad-69e09759a10f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/getAllUsers"
+					},
+					"response": []
+				}
+			],
+			"id": "58c9d662-f62c-441c-b27e-7c817fe5fc60"
+		},
+		{
+			"name": "Đăng ký ứng viên thất bại",
+			"item": [
+				{
+					"name": "Đăng ký ứng viên - thiếu account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									"pm.environment.set(\"account\", \"Ngọc Mai\");\r",
+									"pm.environment.set(\"password\", \"Mai@1234\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"\r",
+									"\r",
+									"  \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "134b2d04-3a8e-4f22-997c-30087153d410",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ngọc Mai",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mai@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "account",
+									"value": "{{account}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0123456789",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "Nữ",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "06/03/1998",
+									"type": "text"
+								},
+								{
+									"key": "experience",
+									"value": "1 năm",
+									"type": "text"
+								},
+								{
+									"key": "skill",
+									"value": "Tiếng Anh",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "chăm chỉ",
+									"type": "text"
+								},
+								{
+									"key": "foreiginLanguage",
+									"value": "JLPT N3",
+									"type": "text"
+								},
+								{
+									"key": "education",
+									"value": "tốt nghiệp cấp 3",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Phuong Thao/OneDrive/Pictures/16793_85_8z02T.jpg"
+								}
+							]
+						},
+						"url": "{{asmurl}}/users/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Đăng ký ứng viên - thiếu password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									"pm.environment.set(\"account\", \"Ngọc Mai\");\r",
+									"pm.environment.set(\"password\", \"Mai@1234\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"\r",
+									"\r",
+									"  \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "09e5f2f7-7bc3-4aaf-b93f-c19109e65cd1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ngọc Mai",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mai@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "account",
+									"value": "{{account}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "0123456789",
+									"type": "text"
+								},
+								{
+									"key": "sex",
+									"value": "Nữ",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "06/03/1998",
+									"type": "text"
+								},
+								{
+									"key": "experience",
+									"value": "1 năm",
+									"type": "text"
+								},
+								{
+									"key": "skill",
+									"value": "Tiếng Anh",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "chăm chỉ",
+									"type": "text"
+								},
+								{
+									"key": "foreiginLanguage",
+									"value": "JLPT N3",
+									"type": "text"
+								},
+								{
+									"key": "education",
+									"value": "tốt nghiệp cấp 3",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Phuong Thao/OneDrive/Pictures/16793_85_8z02T.jpg"
+								}
+							]
+						},
+						"url": "{{asmurl}}/users/register"
+					},
+					"response": []
+				}
+			],
+			"id": "062b2de4-9c7c-47a0-9124-cedd5467f394",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6edfa7ae-a4ad-4a46-8133-b86285899ddd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "65b7d542-3aef-49e9-8f80-e08b63690271",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Đăng ký thất bại status code là 500\",() => {",
+							"    pm.response.to.have.status(500);",
+							"})",
+							"const response = pm.response.json();",
+							"if(pm.response.code === 500)",
+							"pm.test(\"Reponse body có trường error\", () => {",
+							"pm.expect(response).to.have.ownProperty('errors');",
+							"})"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Đăng nhập không thành công",
+			"item": [
+				{
+					"name": "Bad Request",
+					"item": [
+						{
+							"name": "Đăng nhập tài khoản - mật khẩu sai định dạng",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+										"exec": [
+											"pm.environment.set(\"invalidPassword\", \"abc\");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+										"exec": [
+											"\r",
+											"\r",
+											"const message2 = \"Mật khẩu không hợp lệ, mật khẩu phải tối thiểu 8 kí tự, bao gồm chữ hoa, thường, số\";\r",
+											"const jsonData = pm.response.json();\r",
+											"if (pm.response.code === 400){\r",
+											"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
+											"        pm.expect(jsonData.message).to.eql(message2);\r",
+											"}); \r",
+											"}\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "8b763c8b-3465-4367-8ab9-d27c561c3dc1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"{{invalidPassword}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{asmurl}}/users/login"
+							},
+							"response": []
+						},
+						{
+							"name": "Đăng nhập tài khoản - mật khẩu sai",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+										"exec": [
+											"pm.environment.set(\"wrongPassword\", \"Mai1234\");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+										"exec": [
+											"\r",
+											"const message = \"Tài khoản người dùng không tồn tại\";\r",
+											"\r",
+											"const jsonData = pm.response.json();\r",
+											"if (pm.response.code === 400){\r",
+											"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
+											"        pm.expect(jsonData.message).to.eql(message);\r",
+											"}); \r",
+											"}\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "ce73f3b6-e216-4a25-9f3c-ea78ca5264a7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"{{wrongPassword}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{asmurl}}/users/login"
+							},
+							"response": []
+						},
+						{
+							"name": "Đăng nhập tài khoản - mật khẩu trống",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+										"exec": [
+											"\r",
+											"const message = \"Tài khoản người dùng không tồn tại\";\r",
+											"\r",
+											"const jsonData = pm.response.json();\r",
+											"if (pm.response.code === 400){\r",
+											"   pm.test(\"Thông báo mật khẩu sai định dạng\", function () {\r",
+											"        pm.expect(jsonData.message).to.eql(message);\r",
+											"}); \r",
+											"}\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "64485c3e-c671-47da-aff5-414d2db29ffc",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"account\" : \"{{account}}\",\r\n    \"password\" : \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{asmurl}}/users/login"
+							},
+							"response": []
+						}
+					],
+					"id": "a51a2d08-c0da-46cc-a6bb-a4bbd6df56b7",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0d5a132d-0c55-4539-9e8f-2bfb2ec12f9f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8564eb71-efb7-4497-bb26-faae86f747ed",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Đăng nhập thất bại status code là 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Đăng nhập tài khoản không tồn tại",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									"pm.environment.set(\"invalidUser\", \"dsjagfjh\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Đăng nhập thất bại status code là 404\", function () {\r",
+									"\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"const message = \"Tài khoản người dùng không tồn tại\";\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Thông báo đăng nhập tài khoản không tồn tại\", function () {\r",
+									"        pm.expect(jsonData.message).to.eql(message);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "9e3d5478-1c71-44c1-9013-6edb6bd4be19",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account\" : \"{{invalidUser}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/login"
+					},
+					"response": []
+				}
+			],
+			"id": "09ee018a-7cc4-406f-ba30-c15a84779022"
+		},
+		{
+			"name": "Unauthorized header",
+			"item": [
+				{
+					"name": "Lấy thông tin User - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Thông báo lỗi\", () => {\r",
+									"\r",
+									"const message = \"Bạn Chưa Đăng Nhập\";\r",
+									"   pm.response.to.have.body(message);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "93939870-23dd-4ca7-9200-0cc771fc9cad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/users/get-information-user"
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy danh sách ứng viên - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Thông báo lỗi\", () => {\r",
+									"\r",
+									"const message = \"Forbidden.\";\r",
+									"   pm.response.to.have.body(message);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "24068954-3366-40eb-bd73-59821e5146d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/work-user/get-all-admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Ứng tuyển - 403",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "667c7c25-d054-4e97-84e5-93aa3a97fa58",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6427ab6f-fddf-4d01-8090-0da430696084",
+								"exec": [
+									"pm.test(\"Thông báo lỗi\", () => {\r",
+									"\r",
+									"const message = \"Forbidden.\";\r",
+									"   pm.response.to.have.body(message);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e51b0a4e-3bb3-4bee-b028-4d5ac6fddda4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jobId\" : \"{{jobID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{asmurl}}/application/create-application"
+					},
+					"response": []
+				}
+			],
+			"id": "5ea49f65-3cfc-48b6-a41f-40612f2f1e02",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4beec09d-c93e-4d40-a3f6-826dc6a50227",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "53555c71-08f1-4058-b3f3-c74422c654f1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Lấy thông tin User thành công status code là 200\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						]
+					}
+				}
+			]
+		}
+	]
+}
